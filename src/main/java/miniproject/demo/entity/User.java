@@ -31,9 +31,9 @@ public class User {
     private LocalDateTime joinedAt; //가입 날짜
 
     //의존성 주입해야 Authority 생김!!
-    @Enumerated(EnumType.STRING)
+    /*@Enumerated(EnumType.STRING)
     private Authority authority;
-
+*/
     @Builder
     public User(String email, String password) {
         this.email = email;

@@ -17,7 +17,7 @@ public class CommentResponseDTO {
     private Long commentId; //기본키 댓글 id
     private Long userId; //외래키 사용자
     private String content; //댓글 내용
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; //생성일
 
 
     //Entity -> DTO 변환 메서드

@@ -9,9 +9,9 @@ import miniproject.demo.DTO.CommentResponseDTO;
 import miniproject.demo.entity.Comment;
 import miniproject.demo.service.CommentService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,12 +20,28 @@ public class CommentController {
     private final CommentService commentService;
 
     //댓글 생성
-    @PostMapping("/api/comments")
+    @PostMapping("/api/v1/comments")
     public CommentResponseDTO createComment(@RequestBody CommentRequestDTO commentRequestDTO) {
         CommentResponseDTO commentResponseDTO;
         commentResponseDTO = commentService.createComment(commentRequestDTO);
 
         return commentResponseDTO;
+    }
+
+    //댓글 조회
+    @GetMapping("/api/v1/board/{boardId}/comments")
+    public List<CommentResponseDTO> viewComment() {
+        List<CommentResponseDTO> comment_list;
+        comment_list = commentService.viewCommentList();
+
+        return comment_list;
+    }
+
+
+    //댓글 삭제
+    @DeleteMapping("api/v1/board/{boardId}/{commentsId}")
+    public void deleteComment(@PathVariable("boardId") Long boardId, @PathVariable("commentsId") Long commentId) {
+        commentService.deleteComment(commentId);
     }
 
 }

@@ -37,4 +37,11 @@ public class Comment {
         if(this.user == null) { return null; }
         return this.user.getUserId();
     }
+
+    //user_id만
+    public Long getBoardId() {
+        if(this.board == null) { return null; }
+        return this.board.getBoardId();
+    }
+
 }

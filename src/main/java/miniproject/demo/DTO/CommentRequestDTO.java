@@ -1,6 +1,8 @@
 package miniproject.demo.DTO;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import lombok.*;
 
 @Getter

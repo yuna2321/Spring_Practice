@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +51,30 @@ public class CommentService {
 
         //다시 DTO로 전환 후 리턴
         return CommentResponseDTO.from(comment);
+    }
+
+    //게시글 댓글 조회
+    //Entity->DTO 변환
+    @Transactional
+    public List<CommentResponseDTO> viewCommentList() {
+        List<Comment> comment_list = commentRepository.findAll();
+        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
+
+        for(Comment comment : comment_list) {
+            CommentResponseDTO commentResponseDTO = CommentResponseDTO.from(comment);
+            commentResponseDTOList.add(commentResponseDTO);
+        }
+
+        return commentResponseDTOList;
+    }
+
+    //댓글 삭제
+    @Transactional
+    public void deleteComment(Long commentId) {
+        Comment comment_delete;
+        comment_delete = commentRepository.findById(commentId).get();
+
+        commentRepository.delete(comment_delete);
     }
 
 
