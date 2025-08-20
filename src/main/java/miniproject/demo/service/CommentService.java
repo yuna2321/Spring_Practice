@@ -13,6 +13,8 @@ import miniproject.demo.entity.User;
 import miniproject.demo.repository.BoardRepository;
 import miniproject.demo.repository.CommentRepository;
 import miniproject.demo.repository.UserRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -53,11 +55,11 @@ public class CommentService {
         return CommentResponseDTO.from(comment);
     }
 
-    //게시글 댓글 조회
+    //해당 게시글 댓글 전체 조회
     //Entity->DTO 변환
     @Transactional
-    public List<CommentResponseDTO> viewCommentList() {
-        List<Comment> comment_list = commentRepository.findAll();
+    public List<CommentResponseDTO> getCommentsByBoard(Long boardId) {
+        List<Comment> comment_list = commentRepository.findByBoard_BoardIdOrderByCreatedAtAsc(boardId);
         List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
 
         for(Comment comment : comment_list) {

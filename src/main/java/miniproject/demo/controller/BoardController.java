@@ -28,7 +28,7 @@ public class BoardController {
 
 
     //게시글 생성
-    @PostMapping("/api/boards")
+    @PostMapping("/api/v1/boards")
     public BoardResponseDTO createBoard(@RequestBody BoardCreateRequestDTO boardCreateRequestDTO) {
         BoardResponseDTO boardResponseDTO;
         boardResponseDTO = boardService.createBoard(boardCreateRequestDTO);
@@ -37,7 +37,7 @@ public class BoardController {
     }
 
     //전체 조회
-    @GetMapping("/api/boards")
+    @GetMapping("/api/v1/boards")
     public List<BoardResponseDTO> showBoardList() {
         List<BoardResponseDTO> board_list;
         board_list = boardService.boardList();
@@ -46,19 +46,19 @@ public class BoardController {
     }
 
     //상세 조회
-    @GetMapping("/api/boards/{id}")
+    @GetMapping("/api/v1/boards/{id}")
     public BoardResponseDTO boardView(@PathVariable("id") Long id, Model model) {
         return boardService.boardView(id);
     }
 
     //수정
-    @PatchMapping("/api/boards/{id}")
+    @PatchMapping("/api/v1/boards/{id}")
     public void updateBoard(@PathVariable("id") Long boardId, @RequestBody BoardUpdateRequestDTO boardUpdateRequestDTO) {
         boardService.boardUpdate(boardId, boardUpdateRequestDTO);
     }
 
     //삭제
-    @DeleteMapping("/api/boards/{id}")
+    @DeleteMapping("/api/v1/boards/{id}")
     public void deleteBoard(@PathVariable("id") Long boardId) {
         boardService.boardDelete(boardId);
     }

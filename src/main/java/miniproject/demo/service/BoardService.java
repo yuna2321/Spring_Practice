@@ -10,6 +10,7 @@ import miniproject.demo.entity.Board;
 import miniproject.demo.entity.User;
 import miniproject.demo.repository.BoardRepository;
 import miniproject.demo.repository.CommentRepository;
+import miniproject.demo.repository.LikeRepository;
 import miniproject.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataNotFoundException;
@@ -26,9 +27,10 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
     private Long commentCount;
-    //private Integer likeCount;
+    private Long likeCount;
 
 
     //게시글 작성
@@ -50,10 +52,11 @@ public class BoardService {
 
         //처음 생성시 0개
         commentCount = 0L;
-        //likeCount = 0;
+
+        likeCount = 0L;
 
         //다시 DTO로 전환 후 리턴
-        return BoardResponseDTO.from(board, commentCount);
+        return BoardResponseDTO.from(board, commentCount, likeCount);
     }
 
     //게시글 리스트
@@ -66,7 +69,8 @@ public class BoardService {
 
         for(Board board : board_list) {
             commentCount = commentRepository.countByBoard_BoardId(board.getBoardId());
-            BoardResponseDTO boardResponseDTO = BoardResponseDTO.from(board, commentCount);
+            likeCount = likeRepository.countByBoard_BoardId(board.getBoardId());
+            BoardResponseDTO boardResponseDTO = BoardResponseDTO.from(board, commentCount, likeCount);
             boardResponseDTOList.add(boardResponseDTO);
         }
 
@@ -84,7 +88,7 @@ public class BoardService {
 
         commentCount = commentRepository.countByBoard_BoardId(boardId);
 
-        boardResponseDTO = BoardResponseDTO.from(board, commentCount);
+        boardResponseDTO = BoardResponseDTO.from(board, commentCount, likeCount);
 
         return boardResponseDTO;
     }

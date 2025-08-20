@@ -30,9 +30,9 @@ public class CommentController {
 
     //댓글 조회
     @GetMapping("/api/v1/board/{boardId}/comments")
-    public List<CommentResponseDTO> viewComment() {
+    public List<CommentResponseDTO> viewComment(@PathVariable("boardId") Long boardId) {
         List<CommentResponseDTO> comment_list;
-        comment_list = commentService.viewCommentList();
+        comment_list = commentService.viewCommentList(boardId);
 
         return comment_list;
     }

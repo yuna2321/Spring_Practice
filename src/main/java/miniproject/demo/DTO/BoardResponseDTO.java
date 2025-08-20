@@ -24,7 +24,7 @@ public class BoardResponseDTO {
 
     //Entity -> DTO 변환 메서드
     //조회 등
-    public static BoardResponseDTO from(Board board, Long commentCount) {
+    public static BoardResponseDTO from(Board board, Long commentCount, Long likeCount) {
         return BoardResponseDTO.builder()
                 .boardId(board.getBoardId())
                 .userId(board.getUser().getUserId())
@@ -33,6 +33,7 @@ public class BoardResponseDTO {
                 .createdAt(board.getCreatedAt())
                 .updatedAt(board.getUpdatedAt())
                 .commentCount(commentCount)
+                .likeCount(likeCount)
                 .build();
     }
 }
